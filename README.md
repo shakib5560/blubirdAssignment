@@ -115,24 +115,35 @@ http://localhost:3000/api/docs
 ## 📁 Project Structure
 
 ```
-Assignment/
-├── 📂 code/                     # NestJS application root
-│   ├── 📂 src/
-│   │   ├── 📂 customer/         # Customer module (controller, service, DTO)
-│   │   ├── 📂 product/          # Product module (controller, service)
-│   │   ├── 📂 order/            # Order module (controller, service, DTO)
-│   │   ├── 📂 prisma/           # PrismaService — global DB connection
-│   │   ├── 📂 filters/          # Global HTTP exception filter
-│   │   └── 📄 main.ts           # App bootstrap (Swagger + ValidationPipe)
-│   ├── 📂 prisma/
-│   │   ├── 📄 schema.prisma     # Data models, relations & indexes
-│   │   └── 📄 seed.ts           # Deterministic fixture seeding script
-│   └── 🐳 Dockerfile            # Multi-stage production build
-├── 📂 fixtures/                 # JSON seed data (customers, products)
-├── 📂 tests/                    # E2E & adversarial test cases
-├── 📂 transcripts/              # AI session logs
-├── 📄 RUN.md                    # ← Single bootstrap command
-├── 📄 README.md                 # This file
+code/                            # ← Repository root
+├── 📂 src/
+│   ├── 📂 customer/             # Customer module
+│   │   ├── 📄 customer.controller.ts
+│   │   ├── 📄 customer.service.ts
+│   │   ├── 📄 customer.module.ts
+│   │   └── 📂 dto/
+│   │       └── 📄 create-customer.dto.ts
+│   ├── 📂 product/              # Product module
+│   │   ├── 📄 product.controller.ts
+│   │   ├── 📄 product.service.ts
+│   │   └── 📄 product.module.ts
+│   ├── 📂 order/                # Order module
+│   │   ├── 📄 order.controller.ts
+│   │   ├── 📄 order.service.ts
+│   │   ├── 📄 order.module.ts
+│   │   └── 📂 dto/
+│   │       └── 📄 create-order.dto.ts
+│   ├── 📂 prisma/               # Global DB service
+│   │   └── 📄 prisma.module.ts
+│   ├── 📂 filters/              # Global HTTP exception filter
+│   │   └── 📄 all-exceptions.filter.ts
+│   └── 📄 main.ts               # App bootstrap (Swagger + ValidationPipe)
+├── 📂 prisma/
+│   ├── 📄 schema.prisma         # Data models, relations & indexes
+│   └── 📄 seed.ts               # Deterministic fixture seeding script
+├── 🐳 Dockerfile                # Multi-stage production build
+├── 📄 package.json
+├── 📄 tsconfig.json
 └── 🔒 .env                      # DATABASE_URL (not committed)
 ```
 
