@@ -25,7 +25,7 @@ If a user asks to buy something, ask for their email and the specific products/q
 If a user tries to order more stock than available, inform them of the limit based on the tool response.
 Do NOT make up products, prices, inventory, or orders.`;
 
-    const tools: any = [
+    const tools = [
       {
         functionDeclarations: [
           {
@@ -57,7 +57,7 @@ Do NOT make up products, prices, inventory, or orders.`;
             parameters: {
               type: Type.OBJECT,
               properties: {
-                customer_email: { type: Type.STRING, description: 'The email of the customer.' },
+                customer_email: { type: Type.STRING, description: 'The email of the customer placing the order.' },
                 items: {
                   type: Type.ARRAY,
                   description: 'List of items to order.',
@@ -94,8 +94,7 @@ Do NOT make up products, prices, inventory, or orders.`;
       // Execution Loop
       while (response.functionCalls && response.functionCalls.length > 0) {
         const functionCall = response.functionCalls[0];
-        const { name } = functionCall;
-        const args = (functionCall.args || {}) as Record<string, any>;
+        const { name, args } = functionCall;
         
         let functionResponse: any;
 
