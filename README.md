@@ -59,6 +59,10 @@ POST /assistant/chat  →  Converse with the AI assistant (search, order, check 
 - The `place_order` tool **reuses the existing `OrderService`** transactional logic identically to the REST endpoint — there is a single source of truth for order placement, ensuring consistent stock validation and atomic inventory deduction regardless of whether the order originates from REST or AI chat.
 - Tool responses are **deep-cloned to plain JSON** before being returned to the SDK to avoid `DataCloneError` caused by Prisma's `Decimal` type and the SDK's internal `structuredClone` call.
 
+### Task 3 — Bulk Import Pipeline
+- **URL Handling**: It is assumed that the provided URL returns textual data (HTML, JSON, or CSV). For HTML pages, we safely strip extraneous tags (`script`, `style`, `svg`, `img`, etc.) to maximize LLM context window efficiency.
+- **Data Integrity & Corruption**: If the LLM produces corrupted data or misses core required fields (like `name` or `price`), the Zod validation layer intercepts it and the batch item is skipped safely. The pipeline operates idempotently (upserting via product `name`) to prevent duplication.
+
 ---
 
 ## 🚫 Exclusions
@@ -134,7 +138,15 @@ The following were **deliberately excluded** to remain focused on the assignment
 | 🧪 Testing (Unit & E2E) | ~17 min |
 | **⏳ Total** | **36 min** |
 
-### 🏁 Grand Total: **~3h 33m**
+### Task 3 — Bulk Import Pipeline
+
+| Phase | Duration |
+| ----- | -------- |
+| ⚙️ Implementation (Bulk Import Pipeline) | 37 min |
+| 🧪 Testing (Unit & E2E) | 22 min |
+| **⏳ Total** | **59 min** |
+
+### 🏁 Grand Total: **~4h 32m**
 
 ---
 
