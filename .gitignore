@@ -34,3 +34,7 @@ yarn-error.log*
 # Misc
 *.tgz
 .cache/
+.agents/
+.claude/
+.cursor/
+.devin/
