@@ -1,85 +1,114 @@
-# 🛒 Task 0 — Foundation: Minimal E-Commerce Backend
+<div align="center">
 
-> **Build a production-grade REST API and data layer for products, customers, and orders.**
+# 🛒 Task 0 — E-Commerce Backend Foundation
+
+<p>
+  <img src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
+  <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" />
+</p>
+
+> **Production-grade REST API and data layer for a minimal e-commerce system.**  
+> Customers · Products · Orders — with transactional inventory and atomic price calculation.
+
+</div>
 
 ---
 
-## Overview
+## 📖 Overview
 
-This project establishes the **foundation stage** of a four-part e-commerce backend assignment. It implements a clean, modular REST API with full CRUD operations for **Products**, **Customers**, and **Orders** — including transactional inventory management and server-side price calculation.
+This project establishes the **foundation stage** of a four-part e-commerce backend assignment. It delivers a clean, modular REST API implementing full CRUD operations for **Products**, **Customers**, and **Orders** — including server-side total calculation and atomic stock deduction via Prisma transactions.
 
-**Built with:**
-
-- **NestJS** — TypeScript-first, modular backend framework
-- **Prisma** — Type-safe ORM with migration and seeding support
-- **PostgreSQL** (Neon) — Managed relational database
-- **Docker** — Containerized, reproducible deployments
-- **Swagger UI** — Interactive API documentation at `/api/docs`
+```
+POST /customers  →  Register a customer
+GET  /products   →  Browse the catalog
+POST /orders     →  Place an order (atomic, transactional)
+GET  /orders/:id →  View order with full line-item breakdown
+```
 
 ---
 
-## ⏱ Time Spent for task 0
+## ⏱️ Time Spent — Task 0
 
-| Phase                          | Duration   |
-| ------------------------------ | ---------- |
-| Setup & Infrastructure         | ~15 min    |
-| Prisma Schema & DB Migrations  | ~10 min    |
-| Core Business Logic & Services | ~35 min    |
-| E2E & Adversarial Tests        | ~20 min    |
-| Cleanup, Docs & Polish         | ~53 min    |
-| **Total**                      | **2h 13m** |
+| Phase                              | Duration   |
+| ---------------------------------- | ---------- |
+| 🏗️ Setup & Infrastructure          | ~15 min    |
+| 🗄️ Prisma Schema & DB Migrations   | ~10 min    |
+| ⚙️ Core Business Logic & Services  | ~35 min    |
+| 🧪 E2E & Adversarial Tests         | ~20 min    |
+| 🧹 Cleanup, Docs & Polish          | ~53 min    |
+| **⏳ Total**                        | **2h 13m** |
 
 ---
 
 ## 📌 Assumptions
 
-- A **relational database** (PostgreSQL) was chosen to ensure referential integrity across customers, orders, and products via foreign keys and cascade rules.
-- The application relies on **Docker** to guarantee a clean-state, reproducible startup on any machine.
-- `totalAmount` on orders is **always calculated server-side** from current database prices — client-submitted prices are never trusted.
-- Stock deduction runs inside an **atomic Prisma `$transaction`** to prevent race conditions and overselling.
-- Email uniqueness on customers is enforced at the database level via a unique index.
+- **Relational database** (PostgreSQL via Neon) was chosen to enforce data integrity through foreign keys, unique constraints, and cascade rules.
+- **Docker** is used to guarantee a clean, reproducible startup on any machine.
+- **`totalAmount` is always calculated server-side** — never trusted from the client request.
+- **Stock deduction is atomic** — runs inside a Prisma `$transaction` to prevent race conditions and overselling.
+- **Email uniqueness** is enforced at the database level via a unique index on `Customer.email`.
+- **Decimal pricing** (`Prisma.Decimal`) is used instead of floats to ensure precision in financial calculations.
 
 ---
 
 ## 🚫 Exclusions & Incomplete Work
 
-The following were **intentionally excluded** to keep the MVP focused on the core data model and business logic:
+The following were **intentionally excluded** to stay focused on the core MVP data model:
 
-- **Authentication & Authorization** — JWT, OAuth, or session-based auth was not implemented.
-- **Payment Gateway Integration** — No real payment processing (Stripe, PayPal, etc.) is wired up.
-- **Advanced Pagination** — Basic `skip`/`take` is supported; cursor-based pagination is deferred.
-- **Rate Limiting & Throttling** — No request-rate middleware is configured.
+| Area | Status | Reason |
+|------|--------|--------|
+| JWT / OAuth Authentication | ❌ Excluded | Out of scope for Task 0 |
+| Payment Gateway (Stripe etc.) | ❌ Excluded | Out of scope for Task 0 |
+| Cursor-based Pagination | ⏳ Deferred | Basic skip/take implemented |
+| Rate Limiting / Throttling | ❌ Excluded | Out of scope for Task 0 |
 
-> **Note:** There are no known bugs or incomplete features within the defined scope of Task 0.
+> ✅ **No known bugs or incomplete features within the defined scope of Task 0.**
 
 ---
 
 ## 🔧 Third-Party Services
 
-| Provider             | Purpose                              | Required For |
-| -------------------- | ------------------------------------ | ------------ |
-| **Neon (PostgreSQL)** | Managed cloud relational database   | Task 0       |
-| **Docker**           | Containerized application deployment | Task 0       |
-| **Prisma**           | ORM, migrations, and database seeding | Task 0       |
-| **NestJS**           | Backend framework (TypeScript)       | Task 0       |
-| **Swagger / OpenAPI** | Interactive API documentation       | Task 0       |
+| Provider | Purpose | Required For |
+| -------- | ------- | ------------ |
+| 🐘 **Neon (PostgreSQL)** | Managed cloud relational database | Task 0 |
+| 🐳 **Docker** | Containerized deployment | Task 0 |
+| 🔷 **Prisma** | ORM, schema migrations, DB seeding | Task 0 |
+| 🦅 **NestJS** | TypeScript backend framework | Task 0 |
+| 📄 **Swagger / OpenAPI** | Interactive API documentation | Task 0 |
 
 ---
 
 ## 🚀 Bootstrapping
 
-The **single command** to install dependencies, push the database schema, seed fixtures, build the project, and start the server from a clean state is documented in:
-
-> 📄 **[`RUN.md`](../RUN.md)** — located at the root of the repository.
+> 📄 The **single command** to start the system from a clean state is in **[`RUN.md`](../RUN.md)** at the repository root.
 
 ```bash
-# Quick reference (see RUN.md for full details):
+# From the repository root — installs deps, pushes schema, seeds DB, builds & runs:
 cd code && npm ci && npx prisma db push && npx prisma db seed && npm run build && npm run start:prod
 ```
 
-Once the server is running, access the **Swagger UI** at:
+Once running, access the **interactive Swagger UI** at:
 
-> 🌐 **http://localhost:3000/api/docs**
+```
+http://localhost:3000/api/docs
+```
+
+---
+
+## 🧪 API Reference
+
+| Method | Endpoint | Description |
+| :----: | -------- | ----------- |
+| `POST` | `/customers` | Register a new customer |
+| `GET` | `/customers/:id` | Get customer profile |
+| `GET` | `/products` | List all products (supports `?search=`) |
+| `GET` | `/products/:id` | Get a single product by ID |
+| `POST` | `/orders` | Place an order (atomic stock decrement) |
+| `GET` | `/orders/:id` | Full order with line items & customer |
 
 ---
 
@@ -87,39 +116,30 @@ Once the server is running, access the **Swagger UI** at:
 
 ```
 Assignment/
-├── code/                  # NestJS application source
-│   ├── src/
-│   │   ├── customer/      # Customer module (controller, service, DTO)
-│   │   ├── product/       # Product module (controller, service)
-│   │   ├── order/         # Order module (controller, service, DTO)
-│   │   ├── prisma/        # PrismaService (global DB access)
-│   │   ├── filters/       # Global exception filter
-│   │   └── main.ts        # App bootstrap with validation & Swagger
-│   ├── prisma/
-│   │   ├── schema.prisma  # Data models & relations
-│   │   └── seed.ts        # Deterministic seeding script
-│   └── Dockerfile         # Multi-stage production build
-├── fixtures/              # JSON seed data (customers, products)
-├── tests/                 # E2E & adversarial test cases
-├── transcripts/           # Raw AI session logs
-├── RUN.md                 # Single bootstrap command
-├── README.md              # This file
-└── .env                   # Environment variables (DATABASE_URL)
+├── 📂 code/                     # NestJS application root
+│   ├── 📂 src/
+│   │   ├── 📂 customer/         # Customer module (controller, service, DTO)
+│   │   ├── 📂 product/          # Product module (controller, service)
+│   │   ├── 📂 order/            # Order module (controller, service, DTO)
+│   │   ├── 📂 prisma/           # PrismaService — global DB connection
+│   │   ├── 📂 filters/          # Global HTTP exception filter
+│   │   └── 📄 main.ts           # App bootstrap (Swagger + ValidationPipe)
+│   ├── 📂 prisma/
+│   │   ├── 📄 schema.prisma     # Data models, relations & indexes
+│   │   └── 📄 seed.ts           # Deterministic fixture seeding script
+│   └── 🐳 Dockerfile            # Multi-stage production build
+├── 📂 fixtures/                 # JSON seed data (customers, products)
+├── 📂 tests/                    # E2E & adversarial test cases
+├── 📂 transcripts/              # AI session logs
+├── 📄 RUN.md                    # ← Single bootstrap command
+├── 📄 README.md                 # This file
+└── 🔒 .env                      # DATABASE_URL (not committed)
 ```
 
 ---
 
-## 🧪 API Endpoints
+<div align="center">
 
-| Method | Endpoint          | Description                                  |
-| ------ | ----------------- | -------------------------------------------- |
-| `GET`  | `/products`       | List all products (with optional search)     |
-| `GET`  | `/products/:id`   | Get a single product by ID                   |
-| `POST` | `/customers`      | Register a new customer                      |
-| `GET`  | `/customers/:id`  | Get customer profile with recent orders      |
-| `POST` | `/orders`         | Place an order (atomic stock decrement)       |
-| `GET`  | `/orders/:id`     | Get order details with line items & customer |
+*Built with precision for the **BluBird Interactive** engineering review.*
 
----
-
-*Built with precision for the BluBird Interactive engineering review.*
+</div>
