@@ -44,6 +44,16 @@ GET  /orders/:id →  View order with full line-item breakdown
 
 ---
 
+## ⏱️ Time Spent — Task 1
+
+| Phase                              | Duration   |
+| ---------------------------------- | ---------- |
+| ⚙️ Implementation (AI Assistant)   | ~33 min    |
+| 🧪 Testing (Unit & E2E)            | ~11 min    |
+| **⏳ Total**                        | **44 min** |
+
+---
+
 ## 📌 Assumptions
 
 - **Relational database** (PostgreSQL via Neon) was chosen to enforce data integrity through foreign keys, unique constraints, and cascade rules.
@@ -79,6 +89,9 @@ The following were **intentionally excluded** to stay focused on the core MVP da
 | 🔷 **Prisma** | ORM, schema migrations, DB seeding | Task 0 |
 | 🦅 **NestJS** | TypeScript backend framework | Task 0 |
 | 📄 **Swagger / OpenAPI** | Interactive API documentation | Task 0 |
+| ✨ **Google Gemini 3.6 Flash** | Primary AI assistant model | Task 1 |
+| 🦙 **Meta Llama 3.3 70B (via Groq)** | Fallback AI assistant model | Task 1 |
+| ⚡ **Groq** | Fast AI inference and fallback routing | Task 1 |
 
 ---
 
@@ -109,6 +122,7 @@ http://localhost:3000/api/docs
 | `GET` | `/products/:id` | Get a single product by ID |
 | `POST` | `/orders` | Place an order (atomic stock decrement) |
 | `GET` | `/orders/:id` | Full order with line items & customer |
+| `POST` | `/assistant/chat` | Ask the AI assistant a catalog question |
 
 ---
 
@@ -133,6 +147,12 @@ code/                            # ← Repository root
 │   │   ├── 📄 order.module.ts
 │   │   └── 📂 dto/
 │   │       └── 📄 create-order.dto.ts
+│   ├── 📂 assistant/            # AI Assistant module (Task 1)
+│   │   ├── 📄 assistant.controller.ts
+│   │   ├── 📄 assistant.module.ts
+│   │   ├── 📄 catalog-assistant.service.ts
+│   │   └── 📂 dto/
+│   │       └── 📄 chat.dto.ts
 │   ├── 📂 prisma/               # Global DB service
 │   │   └── 📄 prisma.module.ts
 │   ├── 📂 filters/              # Global HTTP exception filter
@@ -144,7 +164,8 @@ code/                            # ← Repository root
 ├── 🐳 Dockerfile                # Multi-stage production build
 ├── 📄 package.json
 ├── 📄 tsconfig.json
-└── 🔒 .env                      # DATABASE_URL (not committed)
+├── 📄 .env.example              # Environment variable template
+└── 🔒 .env                      # DATABASE_URL + API keys (not committed)
 ```
 
 ---
