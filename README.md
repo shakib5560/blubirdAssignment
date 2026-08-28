@@ -175,6 +175,7 @@ http://localhost:3000/api/docs
 | `GET` | `/customers/:id` | Get customer profile |
 | `GET` | `/products` | List all products (supports `?search=`) |
 | `GET` | `/products/:id` | Get a single product by ID |
+| `POST` | `/products/bulk-import` | Bulk ingest products from a URL via LLM |
 | `POST` | `/orders` | Place an order (atomic stock decrement) |
 | `GET` | `/orders/:id` | Full order with line items & customer |
 | `POST` | `/assistant/chat` | Converse with the AI — search, order, check status |
