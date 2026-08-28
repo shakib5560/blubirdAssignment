@@ -71,7 +71,7 @@ export class LLMExtractionService {
     const prompt = `Extract a list of products from the following text/HTML. Return ONLY JSON where the root is an array format where each object has {name: string, description: string, price: number, stockQuantity: number}. Do not include markdown code blocks, just raw JSON. If no products found, return [].\n\nText: ${text.substring(0, 20000)}`;
     
     const response = await this.groqClient.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
+      model: 'openai/gpt-oss-120b',
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.1,
       response_format: { type: 'json_object' }
