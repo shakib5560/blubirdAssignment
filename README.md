@@ -54,6 +54,16 @@ GET  /orders/:id →  View order with full line-item breakdown
 
 ---
 
+## ⏱️ Time Spent — Task 2
+
+| Phase                              | Duration   |
+| ---------------------------------- | ---------- |
+| ⚙️ Implementation (Tool Calling)   | ~19 min    |
+| 🧪 Testing (Unit & E2E)            | ~17 min    |
+| **⏳ Total**                        | **36 min** |
+
+---
+
 ## 📌 Assumptions
 
 - **Relational database** (PostgreSQL via Neon) was chosen to enforce data integrity through foreign keys, unique constraints, and cascade rules.

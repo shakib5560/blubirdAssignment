@@ -160,11 +160,13 @@ Do NOT make up products, prices, inventory, or orders.`;
           functionResponse = { error: error.message };
         }
 
+        const plainFunctionResponse = JSON.parse(JSON.stringify(functionResponse));
+        
         response = await chat.sendMessage({
           message: [{
             functionResponse: {
               name: name,
-              response: functionResponse
+              response: plainFunctionResponse
             }
           }]
         });
