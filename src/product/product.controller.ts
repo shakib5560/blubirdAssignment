@@ -1,9 +1,15 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
+import { BulkImportDto } from './dto/bulk-import.dto';
 
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
+
+  @Post('bulk-import')
+  bulkImport(@Body() body: BulkImportDto) {
+    return this.productService.bulkImport(body.url);
+  }
 
   @Get()
   findAll(

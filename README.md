@@ -97,8 +97,11 @@ The following were **deliberately excluded** to remain focused on the assignment
 | 📄 **Swagger / OpenAPI** | Interactive API documentation | Task 0 |
 | ✨ **Google Gemini 3.6 Flash** | Primary AI model (catalog grounding + tool calling) | Task 1 & 2 |
 | 🦙 **Meta Llama 3.3 70B** | Fallback AI model for resilience | Task 1 |
-| ⚡ **Groq** | Ultra-fast inference provider for fallback routing | Task 1 |
-| 🧪 **Vitest** | Unit & E2E test runner | Task 0, 1 & 2 |
+| ⚡ **Groq** | Ultra-fast inference provider for fallback routing | Task 1 & 3 |
+| 🧪 **Vitest** | Unit & E2E test runner | Task 0, 1, 2, & 3 |
+| 🌐 **Cheerio** | HTML parsing and DOM manipulation | Task 3 |
+| 🛡️ **ipaddr.js** | IP address manipulation for SSRF protection | Task 3 |
+| 🛡️ **Zod** | TypeScript-first schema validation for LLM outputs | Task 3 |
 
 ---
 
