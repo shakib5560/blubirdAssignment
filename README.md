@@ -35,6 +35,7 @@ GET  /products        →  Browse the catalog
 POST /orders          →  Place an order (atomic, transactional)
 GET  /orders/:id      →  View order with full line-item breakdown
 POST /assistant/chat  →  Converse with the AI assistant (search, order, check status)
+POST /products/bulk-import → Bulk ingest products from a URL via LLM
 ```
 
 ---
