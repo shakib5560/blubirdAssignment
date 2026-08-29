@@ -13,7 +13,7 @@ export class CatalogAssistantService {
     private readonly orderService: OrderService,
   ) {
     this.genAI = new GoogleGenAI({
-      apiKey: process.env.GEMINI_API_KEY || 'dummy_key',
+      apiKey: process.env.GEMINI_API_KEY,
     });
   }
 
@@ -183,7 +183,7 @@ Do NOT make up products, prices, inventory, or orders.`;
   }
 
   private async fallbackToLlama(systemPrompt: string, userMessage: string): Promise<string> {
-    const groqApiKey = process.env.GROQ_API_KEY || 'dummy_key';
+    const groqApiKey = process.env.GROQ_API_KEY;
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
